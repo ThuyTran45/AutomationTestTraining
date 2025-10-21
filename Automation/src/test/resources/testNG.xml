@@ -1,0 +1,10 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="MySuite">
+  <test name="InputTest">
+    <parameter name="n" value="5"/>
+    <parameter name="elements" value="1,2,3,4,5"/>
+    <classes>
+      <class name="automation.testsuite.Practice"/>
+    </classes>
+  </test>
+</suite>
