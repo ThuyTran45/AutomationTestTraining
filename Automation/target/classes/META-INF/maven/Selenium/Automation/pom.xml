@@ -174,30 +174,11 @@
        </plugin>
 
       <!-- generate javdoc -->
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-javadoc-plugin</artifactId>
-        <executions>
-          <!-- generate xml javadoc -->
-          <execution>
-            <id>xml-doclet</id>
-            <phase>generate-resources</phase>
-            <goals>
-              <goal>javadoc</goal>
-            </goals>
-            <configuration>
-              <doclet>com.github.markusbernhardt.xmldoclet.XmlDoclet</doclet>
-              <additionalparam>-d ${project.build.directory}/generated-resources/xml-javadoc -filename ${project.artifactId}-${project.version}-javadoc.xml</additionalparam>
-              <useStandardDocletOptions>false</useStandardDocletOptions>
-              <docletArtifact>
-                <groupId>com.github.markusbernhardt</groupId>
-                <artifactId>xml-doclet</artifactId>
-                <version>1.0.4</version>
-              </docletArtifact>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
+     <plugin>
+  <groupId>org.apache.maven.plugins</groupId>
+  <artifactId>maven-javadoc-plugin</artifactId>
+  <version>3.1.1</version>  <!-- hoặc phiên bản mới hơn nếu có -->
+</plugin>
       <!-- Transform xml javadoc to stripped down version containing only class/interface comments and tags-->
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
@@ -258,6 +239,22 @@
 
   <dependencies>
     <!-- add your dependencies here -->
+    <!-- add  xml-doclet-->
+    <!-- https://mvnrepository.com/artifact/com.manticore-projects.tools/xml-doclet -->
+<dependency>
+    <groupId>com.manticore-projects.tools</groupId>
+    <artifactId>xml-doclet</artifactId>
+    <version>2.1.2</version>
+    <type>pom</type>
+</dependency>
+      <!-- add  tools.jar-->
+      <dependency>
+    <groupId>com.sun</groupId>
+    <artifactId>tools</artifactId>
+    <version>1.6</version>
+    <scope>system</scope>
+    <systemPath>C:\Program Files\Java\jdk1.8.0_202\lib/tools.jar</systemPath>
+</dependency>
     <dependency>
       <groupId>org.apache.apex</groupId>
       <artifactId>malhar-library</artifactId>
@@ -274,6 +271,27 @@
         </exclusion>
       </exclusions>
       -->
+    </dependency>
+      <!-- Thêm doclet Simple vào đây -->
+    <dependency>
+  <groupId>com.github.markusbernhardt</groupId>
+  <artifactId>xml-doclet</artifactId>
+  <version>1.0.4</version>
+  <scope>compile</scope>
+</dependency>
+    <!-- Thêm jdk.tools Simple vào đây -->
+    <dependency>
+  <groupId>jdk.tools</groupId>
+  <artifactId>jdk.tools</artifactId>
+  <version>1.8</version>
+  <scope>system</scope>
+  <systemPath>${JAVA_HOME}/lib/tools.jar</systemPath>
+</dependency>
+       <!-- Thêm SLF4J Simple vào đây -->
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-simple</artifactId>
+      <version>2.0.17</version>
     </dependency>
     <dependency>
       <groupId>org.apache.apex</groupId>
@@ -296,7 +314,7 @@
     <dependency>
     <groupId>org.testng</groupId>
     <artifactId>testng</artifactId>
-    <version>7.10.2</version>
+    <version>7.11.0</version>
     <scope>test</scope>
     </dependency><dependency>
       <groupId>javax.activation</groupId>

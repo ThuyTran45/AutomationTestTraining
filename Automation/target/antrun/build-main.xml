@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project name="maven-antrun-" default="main"  >
+<target name="main">
+  <delete dir="C:\Users\ADMIN\eclipse-workspace\Automation\target/generated-resources/xml-javadoc"/>
+  <mkdir dir="C:\Users\ADMIN\eclipse-workspace\Automation\target/generated-resources/xml-javadoc"/>
+</target>
+</project>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results ignored="0" total="3" passed="3" failed="0" skipped="0">
+  <reporter-output>
+  </reporter-output>
+  <suite started-at="2025-10-25T23:17:43 ICT" name="Default suite" finished-at="2025-10-25T23:19:01 ICT" duration-ms="77490">
+    <groups>
+    </groups>
+    <test started-at="2025-10-25T23:17:43 ICT" name="Default test" finished-at="2025-10-25T23:19:01 ICT" duration-ms="77490">
+      <class name="automation.testsuite.BTVN_Day8">
+        <test-method signature="getElementbyId_Day8_Bai2()[pri:0, instance:automation.testsuite.BTVN_Day8@424e1977]" started-at="2025-10-25T23:17:43 ICT" name="getElementbyId_Day8_Bai2" finished-at="2025-10-25T23:17:47 ICT" duration-ms="3903" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- getElementbyId_Day8_Bai2 -->
+        <test-method signature="getElementbyname_Day8_Bai1()[pri:0, instance:automation.testsuite.BTVN_Day8@424e1977]" started-at="2025-10-25T23:17:47 ICT" name="getElementbyname_Day8_Bai1" finished-at="2025-10-25T23:17:51 ICT" duration-ms="4263" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- getElementbyname_Day8_Bai1 -->
+        <test-method signature="getElementbyname_Day8_Bai2()[pri:0, instance:automation.testsuite.BTVN_Day8@424e1977]" started-at="2025-10-25T23:17:51 ICT" name="getElementbyname_Day8_Bai2" finished-at="2025-10-25T23:19:01 ICT" duration-ms="69273" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- getElementbyname_Day8_Bai2 -->
+      </class> <!-- automation.testsuite.BTVN_Day8 -->
+    </test> <!-- Default test -->
+  </suite> <!-- Default suite -->
+</testng-results>
