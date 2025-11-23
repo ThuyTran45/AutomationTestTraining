@@ -12,7 +12,7 @@ import automation.constant.CT_pageURL;
 public class BTVN_Day8_Bài2 extends CommonBase {
 	@BeforeMethod
 	public void init1() {
-		driver = initWebDriver(CT_pageURL.Day8_Bai2);
+		driver = ChromeDriver(CT_pageURL.Day8_Bai2);
 	}
 
 	@Test

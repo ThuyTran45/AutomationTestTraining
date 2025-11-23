@@ -12,12 +12,12 @@ import automation.constant.CT_pageURL;
 public class BTVN_Day8_Bài1 extends CommonBase {
 	@BeforeMethod
 	public void init1() {
-		driver = initWebDriver(CT_pageURL.Day8_Bai1);
+		driver = ChromeDriver(CT_pageURL.Day8_Bai1);
 	}
 
 	@Test
 	public void getElementbyname_Day8_Bai1() {
-		driver = initWebDriver(CT_pageURL.Day8_Bai1);
+		driver = ChromeDriver(CT_pageURL.Day8_Bai1);
 		WebElement email = driver.findElement(By.name("email"));
 		System.out.println("Email element is:" + email);
 		WebElement password = driver.findElement(By.name("Password"));
