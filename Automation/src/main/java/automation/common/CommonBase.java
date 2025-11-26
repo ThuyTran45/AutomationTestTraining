@@ -11,7 +11,7 @@ public class CommonBase {
 
 	public WebDriver FirefoxDriver(String URL) {
 		System.setProperty("webdriver.firefox.driver", System.getProperty("user.dir") + "\\driver\\geckodriver.exe");
-		WebDriver driver = new FirefoxDriver();
+		driver = new FirefoxDriver();
 		driver.get(URL);
 		driver.manage().window().maximize();
 		driver.manage().timeouts().pageLoadTimeout(ofSeconds(30));
@@ -21,7 +21,7 @@ public class CommonBase {
 
 	public WebDriver ChromeDriver(String URL) {
 		System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir") + "\\driver\\chromedriver.exe");
-		WebDriver driver = new ChromeDriver();
+		driver = new ChromeDriver();
 		driver.get(URL);
 		driver.manage().window().maximize();
 		driver.manage().timeouts().pageLoadTimeout(ofSeconds(30));

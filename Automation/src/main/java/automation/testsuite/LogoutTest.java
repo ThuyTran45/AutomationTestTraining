@@ -21,14 +21,15 @@ public class LogoutTest extends CommonBase {
 	}
 
 	@Test
-	public void logoutSuccessfully() {
+	public void logoutSuccessfully() throws InterruptedException  {
 		LoginPage login = new LoginPage(driver);
 		login.LoginFunction("admin@gmail.com", "12345678");
-		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
-		// Chờ admin item display thì click
-		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.className("toast-title")));
-		WebElement admin_item = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("dropdownMenuLink")));
-		((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", admin_item);
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+		Thread.sleep(Duration.ofSeconds(10));;
+				// Chờ admin item display thì click
+		// wait.until(ExpectedConditions.invisibilityOfElementLocated(By.className("toast-message")));
+					WebElement admin_item = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("dropdownMenuLink")));
+	//	((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", admin_item);
 		assertTrue(admin_item.isDisplayed());
 		LogoutPage logoutPage = new LogoutPage(driver);
 		logoutPage.LogoutFunction();

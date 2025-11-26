@@ -16,11 +16,12 @@ public class LogoutPage {
 		if (admin_item.isDisplayed() == true) {
 			admin_item.click();
 		}
-		WebElement logout_item = driver.findElement(By.xpath("//button[@class='dropdown-item' and normalize-space(text())='Đăng xuất']"));
+		WebElement logout_item = driver
+				.findElement(By.xpath("//button[@class='dropdown-item' and normalize-space(text())='Đăng xuất']"));
 		if (logout_item.isDisplayed() == true) {
 			logout_item.click();
 		}
-		
+
 		WebElement submit_item = driver
 				.findElement(By.xpath("//button[@class='btn btn-success' and @type= 'submit' and text()='Đăng xuất']"));
 		if (submit_item.isDisplayed() == true) {
