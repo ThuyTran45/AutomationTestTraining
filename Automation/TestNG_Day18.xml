@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="TestSuite">
+	<test name="Test Day 18 on firefox">
+	 <parameter name="browser" value = "firefox"></parameter>
+		<classes>
+			<class name="automation.testsuite.BTVN_Day18_Bai1" /> 
+			<class name="automation.testsuite.BTVN_Day18_Bai2" /> 
+			   		</classes>	
+	</test>
+		<test name="Test Day 18 on chrome">
+	 <parameter name="browser" value = "chrome"></parameter>
+		<classes>
+			<class name="automation.testsuite.BTVN_Day18_Bai1" /> 
+			<class name="automation.testsuite.BTVN_Day18_Bai2" /> 
+			   		</classes>	
+	</test>
+</suite> <!-- Suite -->
