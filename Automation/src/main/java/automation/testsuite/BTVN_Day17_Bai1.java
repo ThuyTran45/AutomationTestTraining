@@ -53,10 +53,9 @@ public void cach2_message_Zalo() {
 	SearchContext ShadowRoot = shadowHost.getShadowRoot();
 	// Click button close cssSelector button.w-5.h-5 (// Click button close trong Shadow DOM)
 	WebElement closeButton = ShadowRoot.findElement(By.cssSelector("button.w-5.h-5"));
-	closeButton.click();
-//	JavascriptExecutor js = (JavascriptExecutor) driver;
-//	js.executeScript("arguments[0].scrollIntoView(true);", closeButton);
-//	js.executeScript("arguments[0].click();", closeButton);
+	JavascriptExecutor js = (JavascriptExecutor) driver;
+	js.executeScript("arguments[0].scrollIntoView(true);", closeButton);
+	js.executeScript("arguments[0].click();", closeButton);
 	
 	driver.switchTo().frame(findElement_fluent(By.xpath("//iframe[contains(@src,'https://page.widget.zalo.me')]")));
 	click(By.xpath("//div[@class='za-chat__head-box']"));
