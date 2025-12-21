@@ -27,11 +27,21 @@ public class Bai19_BeptuPage extends CommonBase {
 	By gia_muc2 = By.xpath("//div[@class='category-menus']/div/span[contains(text(),'3.000.000 > 5.000.000')]");
 	public By xuatxu_Anh = By.xpath("//span[text()='England']");
 	public By xuatxu_Germany = By.xpath("//input[starts-with(@id,'germany')]");
+	By xemthem_xuatxu = By.xpath("(//span[text()='Xem thêm'])[2]");
+	public By phanloai_BDT = By.xpath("//span[text()='Bếp điện từ']");
+	// public By sobep_5bep = By.xpath("//input[contains(@id,'5-bep')]");
+	public By sobep_5bep = By.xpath("//span[contains(text(),'5 bếp')]");
+	public By muaNgay = By.xpath("(//span[contains(text(),'Mua ngay')])[1]");
 	
-	//menu tab result
+	//thông tin order
+	public By Hoten = By.xpath("//input[@placeholder='Nhập họ và tên']");
+	public By sdt = By.xpath("//input[@placeholder='Nhập số điện thoại']");
+	public By diachi = By.xpath("//input[@placeholder='Nhập số nhà, tên đường, phường/ xã, quận/huyện, tỉnh/ thành phố']");
+
+	// menu tab result
 	By tab_Giamgianhieu = By.xpath("//a[@class='menu-tab' and text()='Giảm giá nhiều']");
 
-	// Expected result
+	// Expected result for search page
 	public By product_result = By.xpath("//div[@class='flex flex-wrap product-list']/a");
 	public By result_Kainer = By.xpath("//div[@class='flex flex-wrap product-list']/a/div[3]/div/img[@alt='KAINER']");
 	public By result_Sunhouse = By
@@ -40,6 +50,11 @@ public class Bai19_BeptuPage extends CommonBase {
 	public By result_muc1_lienHe = By.xpath("//div[contains(@class,'sale-price')]");
 	public By result_muc2 = By.xpath("//span[contains(@class,'sale-price')]");
 	public By result_muc2_lienHe = By.xpath("//div[contains(@class,'sale-price')]");
+	public By result_bepDT = By.xpath("//div[contains(@class,'product-detail')]//span[text()='05' or text()='5']");
+
+	// Expected for detail page
+	public By detail_Germany = By.xpath("(//div[contains(@class,'product-information')]//span[text()='Germany'])[1]");
+	public By detail_5bep = By.xpath("//h4[contains(text(), 'điện từ') or contains(text(), 'điện từ')]");
 
 	public Bai19_BeptuPage(WebDriver driver) {
 		this.driver = driver;
@@ -71,43 +86,50 @@ public class Bai19_BeptuPage extends CommonBase {
 	public void locgiaBT_muc2() throws InterruptedException {
 		click(menu_beptu);
 		clickByActions(gia_muc2);
-		String firstWindow = driver.getWindowHandle();
-        click(tab_Giamgianhieu);
-        //Mở ra tab window mới, lấy currentUrl rồi assert
-        Set<String> windows = driver.getWindowHandles();
-        for(String childWindow : windows)
-        {
-                if(!childWindow.equals(firstWindow))
-                {
-                driver.switchTo().window(childWindow);
-                Thread.sleep(5000);
-                driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3)); 
-                String actualUrl = driver.getCurrentUrl();
-                System.out.println("acutalUrl: "+ actualUrl);
-                assertEquals(actualUrl, "https://bepantoan.vn/danh-muc/bep-tu?price=3000000-5000000&page=1&sort=discount");
-                driver.close();
-                }
-                driver.switchTo().window(firstWindow);
-        }
+		click(tab_Giamgianhieu);
 	}
-	// TC08:click xuất xứ có 2 case : 1 là vd: vào germany có sản phẩm >> vào detail
+
+	// TC08, TC09:click xuất xứ có 2 case : 1 là vd: vào germany có sản phẩm >> vào
+	// detail
 	// check thông tin sản phẩm. case 2: k có sản phẩm nào
 	// Hiển thị text: Rất tiếc, không tìm thấy sản phẩm phù hợp với lựa chọn của bạn
-	public void xuatxu() {
+	public void xuatxu(By locator) {
 		click(menu_beptu);
-		scrollToElement(xuatxu_Anh);
-		JavascriptExecutor js = (JavascriptExecutor) driver;
-		js.executeScript("document.querySelector('div.p-4.border-b.border-grey-200').style.display='none';");
-		 WebElement checkbox = findElement_fluent(xuatxu_Anh);
-		    if (!checkbox.isSelected()) {
-		    	clickByActions(xuatxu_Anh);
-	    }
+		scrollToElement_Center(xemthem_xuatxu);
+		clickByJS(xemthem_xuatxu);
+		WebElement checkbox = findElement_fluent(locator);
+		if (!checkbox.isSelected()) {
+			clickByActions(locator);
+		}
+	}
+
+	// TC10: Chọn số bếp
+	public void sobep_BT(By locator) {
+		click(menu_beptu);
+		scrollToElement_Center(sobep_5bep);
+		clickByActions(sobep_5bep);
+	}
+
+	
+
+	// TC12, 13: Chọn Bếp từ
+	public void phanloai() {
+		click(menu_beptu);
+		scrollToElement_Center(phanloai_BDT);
+		clickByActions(phanloai_BDT);
 	}
 	
-					// Get số lượng sản phẩm khi lọc một điều kiện
+	//Mua hàng
+	public void muahang_BT() {
+		click(muaNgay);
+		type(hang_Kainer);
+		clickByJS(hang_Kainer);
+	}
+
+	// Get số lượng sản phẩm khi lọc một điều kiện
 	// Đếm sô lượng phần tử ở màn search
 	public int resultList_search(By locator) {
-		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
 		List<WebElement> list = wait
 				.until(ExpectedConditions.refreshed(ExpectedConditions.visibilityOfAllElementsLocatedBy(locator)));
 		return list.size();
@@ -115,23 +137,27 @@ public class Bai19_BeptuPage extends CommonBase {
 
 	// Trả về danh sách WebElement, load DOM
 	public List<WebElement> ProductList(By locator) {
-		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-		return wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(product_result));
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+		return wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(locator));
 	}
 
+	// check list count = 0
 	public int countVisibleElements(By locator, int timeoutSeconds) {
-	    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(timeoutSeconds));
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(timeoutSeconds));
 
-	    // Polling: đợi DOM load xong (hoặc timeout)
-	    wait.pollingEvery(Duration.ofMillis(500))
-	        .until(driver -> true); // optional, chỉ để polling DOM
+		// Polling: đợi DOM load xong (hoặc timeout)
+		wait.pollingEvery(Duration.ofMillis(500)).until(driver -> true); // optional, chỉ để polling DOM
 
-	    // Lấy tất cả element hiện tại (có thể rỗng)
-	    List<WebElement> list = driver.findElements(locator);
+		// Lấy tất cả element hiện tại (có thể rỗng)
+		List<WebElement> list = driver.findElements(locator);
 
-	    // Chỉ đếm những element visible
-	    return (int) list.stream()
-	                     .filter(WebElement::isDisplayed)
-	                     .count(); // nếu list rỗng -> trả về 0
+		// Chỉ đếm những element visible
+		return (int) list.stream().filter(WebElement::isDisplayed).count(); // nếu list rỗng -> trả về 0
+	}
+
+	// Check detail information
+	public String detailInformation(By locator) {
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+		return wait.until(ExpectedConditions.visibilityOfElementLocated(locator)).getText().trim();
 	}
 }

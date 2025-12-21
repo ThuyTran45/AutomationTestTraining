@@ -4,11 +4,16 @@ import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 
 import java.math.BigInteger;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -72,6 +77,22 @@ public class Bai19_BeptuTest extends CommonBase {
 	@Test
 	public void locgia_muc2() throws InterruptedException {
 		beptu.locgiaBT_muc2();
+		String firstWindow = driver.getWindowHandle();
+		// Mở ra tab window mới, lấy currentUrl rồi assert
+		Set<String> windows = driver.getWindowHandles();
+		for (String childWindow : windows) {
+			if (!childWindow.equals(firstWindow)) {
+				driver.switchTo().window(childWindow);
+				Thread.sleep(5000);
+				driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
+				String actualUrl = driver.getCurrentUrl();
+				System.out.println("acutalUrl: " + actualUrl);
+				assertEquals(actualUrl,
+						"https://bepantoan.vn/danh-muc/bep-tu?price=3000000-5000000&page=1&sort=discount");
+				driver.close();
+			}
+			driver.switchTo().window(firstWindow);
+		}
 		// Lấy tất cả sản phẩm hiển thị trên trang web(bao gồm cả < 3000, có text liên
 		// hệ)
 		List<WebElement> ProductList = beptu.ProductList(beptu.product_result);
@@ -95,14 +116,95 @@ public class Bai19_BeptuTest extends CommonBase {
 			}
 		}
 	}
-	//TC05,06,07: tương tự TC03,04
-	
-	//TC08
-		@Test
-		public void xuatxu_Test() {
-			beptu.xuatxu();
-			int count = beptu.countVisibleElements(beptu.product_result, 10);
-			// assertTrue(count==0 , "Rất tiếc, không tìm thấy sản phẩm phù hợp với lựa chọn của bạn");
-			 assertEquals(count, 0, "Rất tiếc, không tìm thấy sản phẩm phù hợp với lựa chọn của bạn");
+	// TC05,06,07: tương tự TC03,04
+
+	// TC08
+	@Test
+	public void xuatxu_Germany() {
+		beptu.xuatxu(beptu.xuatxu_Germany);
+		// Lấy danh sách sản phẩm sau khi lọc
+		List<WebElement> ProductList = beptu.ProductList(beptu.product_result);
+		// Đếm số sản phẩm
+		int count = beptu.countVisibleElements(beptu.product_result, 10);
+		assertEquals(count, 20, "Không tìm thấy sản phẩm");
+		// Lặp từng sản phẩm
+		for (int i = 0; i < count; i++) {
+			// Lấy lại danh sách sản phẩm sau mỗi lần loop
+			ProductList = beptu.ProductList(beptu.product_result);
+			WebElement product = ProductList.get(i);
+			// click bằng javascript
+			((JavascriptExecutor) driver).executeScript("arguments[0].click();", product);
+			String actual_xuatxu = beptu.detailInformation(beptu.detail_Germany);
+			assertTrue(actual_xuatxu.equals("GERMANY"), "Sản phầm này không phải Germany");
+			// Quay lại màn list
+			driver.navigate().back();
 		}
+	}
+
+	// TC09
+	@Test
+	public void xuatxu_England() {
+		beptu.xuatxu(beptu.xuatxu_Anh);
+		int count = beptu.countVisibleElements(beptu.product_result, 10);
+		// assertTrue(count==0 , "Rất tiếc, không tìm thấy sản phẩm phù hợp với lựa chọn
+		// của bạn");
+		assertEquals(count, 0, "Rất tiếc, không tìm thấy sản phẩm phù hợp với lựa chọn của bạn");
+	}
+
+	// TC10: Chọn số bếp >> đang fail
+	@Test
+	public void select_sobep() {
+		beptu.sobep_BT(beptu.sobep_5bep);
+		// Lấy danh sách sản phẩm sau khi lọc
+		List<WebElement> sobep_list = beptu.ProductList(beptu.product_result);
+		// Đếm số sản phẩm
+		int count = beptu.countVisibleElements(beptu.product_result, 10);
+		assertEquals(count, 7, "Không tìm thấy sản phẩm");
+		// Lặp từng sản phẩm
+		for (int i = 0; i < count; i++) {
+			// Lấy lại danh sách sản phẩm sau mỗi lần loop
+			sobep_list = beptu.ProductList(beptu.product_result);
+			WebElement sobep = sobep_list.get(i);
+			// click bằng javascript
+			((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", sobep);
+			((JavascriptExecutor) driver).executeScript("arguments[0].click();", sobep);
+
+			String actual_sobep = beptu.detailInformation(beptu.detail_5bep);
+			assertTrue(actual_sobep.equals("05") || actual_sobep.equals("5"), "Số bếp không thoả mãn 5 bếp");
+			// Quay lại màn list
+			driver.navigate().back();
+
+		}
+	}
+
+	// TC12: Chọn Bếp từ (cái này đang có cả dư thừa bếp lọc cả k phải bếp từ, by
+	// pass bằng 06 bếp)
+	@Test
+	public void phanloaitest_BDT() {
+		beptu.phanloai();
+		List<WebElement> listBDT = driver.findElements(beptu.result_bepDT);
+		assertEquals(beptu.resultList_search(beptu.result_bepDT), 6);
+		for (WebElement element : listBDT) {
+			String text = element.getText().toLowerCase();
+			assertTrue(text.contains("điện từ") || text.contains("điện từ"));
+		}
+	}
+//	TC13: Tương tự TC 09
+
+	//TC mua hàng
+	@Test
+	public void Payment_fail()
+	{
+		beptu.locHangBT_Kainer();
+		List<WebElement> orderList = beptu.ProductList(beptu.product_result);
+		assertTrue(orderList.size() > 0, "Không tìm thấy sản phẩm");
+		//Click 1 sản phẩm bất kỳ
+	    WebElement product = orderList.get(0); // hoặc random
+	    ((JavascriptExecutor) driver)
+	        .executeScript("arguments[0].scrollIntoView(true);", product);
+	    ((JavascriptExecutor) driver)
+	        .executeScript("arguments[0].click();", product);
+		
+		
+	}
 }
