@@ -16,7 +16,7 @@ on:
 
   schedule:
     # Cron định nghĩa: chạy lúc 15:35 UTC mỗi ngày
-    - cron: '16 9 * * *'
+    - cron: '20 9 * * *'
 
 jobs:
   build:
@@ -32,7 +32,7 @@ jobs:
         distribution: 'temurin'
         cache: maven
     - name: Run Selenium tests via TestNG XML
-      working-directory: AutomationTestTraining/Automation
+      working-directory: Automation
       run: mvn test -Dsurefire.suiteXmlFiles=TestNG_Day18.xml
 
     # Optional: Uploads the full dependency graph to GitHub to improve the quality of Dependabot alerts this repository can receive
