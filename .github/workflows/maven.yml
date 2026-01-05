@@ -15,7 +15,7 @@ on:
     branches: [ "main" ]
 
     schedule:
-    # Cron định nghĩa: chạy lúc 14:00 UTC mỗi ngày
+    # Cron định nghĩa: chạy lúc 15:35 UTC mỗi ngày
     - cron: '35 8 * * *'
 
 jobs:
