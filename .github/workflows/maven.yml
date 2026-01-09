@@ -16,7 +16,7 @@ on:
 
   schedule:
     # Cron định nghĩa: chạy lúc 15:35 UTC mỗi ngày
-    - cron: '38 9 * * *'
+    - cron: '49 9 * * *'
 
 jobs:
   build:
