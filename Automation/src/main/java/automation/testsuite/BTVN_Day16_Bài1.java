@@ -1,14 +1,6 @@
 package automation.testsuite;
 
-import static org.testng.Assert.assertTrue;
-
-import java.time.Duration;
-
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -18,7 +10,7 @@ import automation.constant.CT_pageURL;
 public class BTVN_Day16_Bài1 extends CommonBase {
 	@BeforeMethod
 	public void openWebpage() {
-		driver = FirefoxDriver(CT_pageURL.CRMSTAR_URL);
+		driver = ChromeDriver(CT_pageURL.CRMSTAR_URL);
 	}
 
 	@Test
@@ -31,6 +23,7 @@ public class BTVN_Day16_Bài1 extends CommonBase {
 	}
 
 	@Test
+	//Bài này trung tâm đang bị lỗi, bỏ qua
 	public void addSuccessfully_KLV() {
 		loginSuccessfully();
 		click(By.xpath("//a[normalize-space()='Quản lý khu làm việc']"));
@@ -39,6 +32,6 @@ public class BTVN_Day16_Bài1 extends CommonBase {
 	    type(By.name("name"), "Ann2");
 	    click(By.xpath("//button[@class='btn btn-outline-success' and normalize-space()='Lưu']"));
 
-	
+
 	}
 }

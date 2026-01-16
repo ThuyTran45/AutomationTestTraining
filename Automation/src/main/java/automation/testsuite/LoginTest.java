@@ -19,7 +19,7 @@ public class LoginTest extends CommonBase{
 @BeforeMethod
 public void openWebPage()
 {
-	driver = FirefoxDriver(CT_pageURL.CRMSTAR_URL);
+	driver = initFirefox(CT_pageURL.CRMSTAR_URL);
 }
 @Test
 public void loginSuccessfully() {
@@ -39,7 +39,7 @@ public void LoginFail_IncorrectPass() {
 	login.LoginFunction("admin_Incorrect@gmail.com", "12345678_0000");
 	driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
 	WebElement textDangnhap = driver.findElement(By.xpath("//h4[text()='Đăng nhập']"));
-	
+
 	assertTrue(textDangnhap.isDisplayed());
 }
 }

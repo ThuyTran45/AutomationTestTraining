@@ -1,6 +1,6 @@
 package automation.testsuite;
 
-import org.openqa.selenium.*;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.annotations.Test;
 
@@ -23,7 +23,7 @@ public class Day8_Locator extends CommonBase{
 		driver = ChromeDriver(CT_pageURL.BEPANTOAN_URL);
 		WebElement linkText = driver.findElement(By.linkText("Máy Rửa Chén Bát"));
 		System.out.println("linkText element is:" + linkText);
-		
+
 	}
 	@Test
 	public void getElementbyClass_TagName()

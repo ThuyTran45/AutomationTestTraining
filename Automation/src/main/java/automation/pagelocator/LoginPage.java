@@ -1,9 +1,5 @@
 package automation.pagelocator;
 
-import static org.testng.Assert.assertTrue;
-
-import java.time.Duration;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -17,17 +13,17 @@ public class LoginPage {
 	}
 	public void LoginFunction (String email, String pass) {
 		WebElement textEmail= driver.findElement(By.id("email"));
-		if(textEmail.isDisplayed()==true)
+		if(textEmail.isDisplayed())
 		{
 			textEmail.sendKeys(email);
 		}
 		WebElement textPass= driver.findElement(By.id("password"));
-		if(textPass.isDisplayed()==true)
+		if(textPass.isDisplayed())
 		{
 			textPass.sendKeys(pass);
 			driver.findElement(By.name("signin")).click();
 		driver.switchTo().alert().accept();
-			
+
 	}
 
 	}

@@ -35,6 +35,6 @@ public class LogoutPage_Factory {
 		((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", btnConfirmDangXuat);
 		((JavascriptExecutor) driver).executeScript("arguments[0].click();", btnConfirmDangXuat);
 		btnConfirmDangXuat.click();
-		
+
 	}
 }

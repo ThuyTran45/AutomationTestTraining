@@ -17,7 +17,7 @@ public class Day12_Dropdownlist extends CommonBase{
 		//Kiểm tra size
 		int size = dropCourse.getOptions().size();
 		System.out.println("Size is: "+ size);
-		
+
 		//chọn aws theo cách 1
 		dropCourse.selectByVisibleText("AWS");
 		String aws = dropCourse.getFirstSelectedOption().getText();

@@ -1,12 +1,9 @@
 package automation.testsuite;
 
-import static org.testng.Assert.assertTrue;
-
 import java.time.Duration;
 
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
@@ -19,7 +16,7 @@ import automation.constant.CT_pageURL;
 public class BTVN_Day16_Bai2 extends CommonBase {
 	@BeforeMethod
 	public void openWebpage() {
-		driver = FirefoxDriver(CT_pageURL.Sele_Day16_bai2);
+		driver = initFirefox(CT_pageURL.Sele_Day16_bai2);
 	}
 	@Test
 	public void Test() {

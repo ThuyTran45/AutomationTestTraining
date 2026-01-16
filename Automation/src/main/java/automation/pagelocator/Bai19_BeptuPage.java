@@ -1,17 +1,11 @@
 package automation.pagelocator;
 
-import static org.testng.Assert.assertEquals;
-
 import java.time.Duration;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -32,7 +26,7 @@ public class Bai19_BeptuPage extends CommonBase {
 	// public By sobep_5bep = By.xpath("//input[contains(@id,'5-bep')]");
 	public By sobep_5bep = By.xpath("//span[contains(text(),'5 bếp')]");
 	public By muaNgay = By.xpath("(//span[contains(text(),'Mua ngay')])[1]");
-	
+
 	//thông tin order
 	public By Hoten = By.xpath("//input[@placeholder='Nhập họ và tên']");
 	public By sdt = By.xpath("//input[@placeholder='Nhập số điện thoại']");
@@ -79,7 +73,7 @@ public class Bai19_BeptuPage extends CommonBase {
 	// TC03: lọc BT theo mức giá <3.000.000
 	public void locgiaBT_muc1() {
 		click(menu_beptu);
-		clickByActions(gia_muc1);
+		clickByJS(gia_muc1);
 	}
 	// TC04: lọc BT theo 3.000.000 <= mức giá < 5.000.000
 
@@ -103,14 +97,14 @@ public class Bai19_BeptuPage extends CommonBase {
 		}
 	}
 
-	// TC10: Chọn số bếp
+	// TC10: Chọn số bếp (do thư viện của trình duyệt, cần thêm hàm khác để click)
 	public void sobep_BT(By locator) {
 		click(menu_beptu);
 		scrollToElement_Center(sobep_5bep);
 		clickByActions(sobep_5bep);
 	}
 
-	
+
 
 	// TC12, 13: Chọn Bếp từ
 	public void phanloai() {
@@ -118,16 +112,17 @@ public class Bai19_BeptuPage extends CommonBase {
 		scrollToElement_Center(phanloai_BDT);
 		clickByActions(phanloai_BDT);
 	}
-	
+
 	//Mua hàng
 	public void muahang_BT() {
 		click(muaNgay);
-		type(hang_Kainer);
+		//type(hang_Kainer);
 		clickByJS(hang_Kainer);
 	}
 
 	// Get số lượng sản phẩm khi lọc một điều kiện
 	// Đếm sô lượng phần tử ở màn search
+	@Override
 	public int resultList_search(By locator) {
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
 		List<WebElement> list = wait

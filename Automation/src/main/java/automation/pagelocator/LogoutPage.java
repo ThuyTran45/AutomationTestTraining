@@ -13,18 +13,18 @@ public class LogoutPage {
 
 	public void LogoutFunction() {
 		WebElement admin_item = driver.findElement(By.id("dropdownMenuLink"));
-		if (admin_item.isDisplayed() == true) {
+		if (admin_item.isDisplayed()) {
 			admin_item.click();
 		}
 		WebElement logout_item = driver
 				.findElement(By.xpath("//button[@class='dropdown-item' and normalize-space(text())='Đăng xuất']"));
-		if (logout_item.isDisplayed() == true) {
+		if (logout_item.isDisplayed()) {
 			logout_item.click();
 		}
 
 		WebElement submit_item = driver
 				.findElement(By.xpath("//button[@class='btn btn-success' and @type= 'submit' and text()='Đăng xuất']"));
-		if (submit_item.isDisplayed() == true) {
+		if (submit_item.isDisplayed()) {
 			submit_item.click();
 		}
 	}

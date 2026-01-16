@@ -1,6 +1,7 @@
 package automation.testsuite;
 
 import java.util.Scanner;
+
 import org.testng.annotations.Test;
 
 public class Practice {

@@ -28,7 +28,7 @@ public class BTVN_Day8_Bài1 extends CommonBase {
 		System.out.println("mobile number element is:" + m1);
 	}
 
-	
+
 	@AfterMethod
 	public void tearDown() {
 		if (driver != null) {

@@ -16,11 +16,11 @@ import automation.common.CommonBase;
 import automation.constant.CT_pageURL;
 
 public class BTVN_Day16_Bai3 extends CommonBase{
-	
+
 	@BeforeMethod
 	public void openWebPage()
 	{
-		driver = FirefoxDriver(CT_pageURL.Sele_Day16_bai3);
+		driver = initFirefox(CT_pageURL.Sele_Day16_bai3);
 	}
 	@Test
 	public void alertOK()

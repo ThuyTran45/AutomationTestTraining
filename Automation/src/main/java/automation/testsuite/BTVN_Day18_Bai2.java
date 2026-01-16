@@ -47,10 +47,12 @@ public class BTVN_Day18_Bai2 extends CommonBase {
 		}
 	}
 
+	@Override
 	@AfterMethod
 	public void closeDriver() {
-		if (driver != null)
+		if (driver != null) {
 			driver.close();
+		}
 	}
 
 }
