@@ -5,15 +5,11 @@ import static org.testng.Assert.assertTrue;
 
 import java.math.BigInteger;
 import java.time.Duration;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -26,7 +22,7 @@ public class Bai19_BeptuTest extends CommonBase {
 
 	@BeforeMethod
 	public void openWebPage() {
-		driver = FirefoxDriver(CT_pageURL.BEPANTOAN_URL);
+		driver = initFirefox(CT_pageURL.BEPANTOAN_URL);
 		beptu = new Bai19_BeptuPage(driver);
 	}
 
@@ -57,9 +53,9 @@ public class Bai19_BeptuTest extends CommonBase {
 		for (WebElement product : ProductList) {
 			// List<WebElement> salePrices = beptu.ProductList(beptu.result_giathap);
 			List<WebElement> salePrices = product.findElements(beptu.result_muc1);
-			for (int i = 0; i < salePrices.size(); i++) {
+			for (WebElement element : salePrices) {
 				// Lấy text sản phẩm
-				String priceText = salePrices.get(i).getText();
+				String priceText = element.getText();
 				// loại bỏ tất cả ký tự không phải số, chỉ giữ lại chữ số.
 				String price_number = priceText.replaceAll("[^0-9]", "");
 				System.out.println("Parsed digits: " + price_number);
@@ -102,9 +98,9 @@ public class Bai19_BeptuTest extends CommonBase {
 		for (WebElement product : ProductList) {
 			// List<WebElement> salePrices = beptu.ProductList(beptu.result_giathap);
 			List<WebElement> salePrices = product.findElements(beptu.result_muc1);
-			for (int i = 0; i < salePrices.size(); i++) {
+			for (WebElement element : salePrices) {
 				// Lấy text sản phẩm
-				String priceText = salePrices.get(i).getText();
+				String priceText = element.getText();
 				// loại bỏ tất cả ký tự không phải số, chỉ giữ lại chữ số.
 				String price_number = priceText.replaceAll("[^0-9]", "");
 				if (!price_number.isEmpty()) {
@@ -159,8 +155,9 @@ public class Bai19_BeptuTest extends CommonBase {
 		List<WebElement> sobep_list = beptu.ProductList(beptu.product_result);
 		// Đếm số sản phẩm
 		int count = beptu.countVisibleElements(beptu.product_result, 10);
-		assertEquals(count, 7, "Không tìm thấy sản phẩm");
+		assertEquals(count, 7, "Không tìm thấy sản phẩm"); // bỏ step này vì số lượng có thể tăng giảm, chỉ cần check số vùng nấu thoả mãn chưa
 		// Lặp từng sản phẩm
+		//số lương sp hiển thị đúng, check vs DB, viết method riêng cho DB (oracle)
 		for (int i = 0; i < count; i++) {
 			// Lấy lại danh sách sản phẩm sau mỗi lần loop
 			sobep_list = beptu.ProductList(beptu.product_result);
@@ -186,7 +183,7 @@ public class Bai19_BeptuTest extends CommonBase {
 		assertEquals(beptu.resultList_search(beptu.result_bepDT), 6);
 		for (WebElement element : listBDT) {
 			String text = element.getText().toLowerCase();
-			assertTrue(text.contains("điện từ") || text.contains("điện từ"));
+			assertTrue(text.contains("điện từ") || text.contains("điện từ")); // sửa assert
 		}
 	}
 //	TC13: Tương tự TC 09
@@ -204,7 +201,7 @@ public class Bai19_BeptuTest extends CommonBase {
 	        .executeScript("arguments[0].scrollIntoView(true);", product);
 	    ((JavascriptExecutor) driver)
 	        .executeScript("arguments[0].click();", product);
-		
-		
+
+
 	}
 }
